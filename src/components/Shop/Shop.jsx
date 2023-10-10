@@ -4,8 +4,12 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 import { Link, useLoaderData } from 'react-router-dom';
+import YouTube from 'react-youtube';
+import onlinebuy from '../../assets/onlinebuy.jpg'
+import offer from '../../assets/offer.jpg'
 
 const Shop = () => {
+    document.title ='MMM mart-home'
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
     const [currentPage, setCurrentPage] = useState(0);
@@ -33,13 +37,13 @@ const Shop = () => {
     // after pagination
     useEffect(() => {
         async function fetchData() {
-        const response = await fetch(`http://localhost:5000/products?page=${currentPage}&limit=${iteamsPerPage}`)
-        const data = await response.json()
-        console.log(data)
-         setProducts(data)
+            const response = await fetch(`http://localhost:5000/products?page=${currentPage}&limit=${iteamsPerPage}`)
+            const data = await response.json()
+            console.log(data)
+            setProducts(data)
         }
         fetchData()
-    },[currentPage,iteamsPerPage]
+    }, [currentPage, iteamsPerPage]
     )
 
     useEffect(() => {
@@ -94,10 +98,16 @@ const Shop = () => {
         setCurrentPage(0);
     }
 
+    const videoId = 'https://www.youtube.com/watch?v=upI_sBXMkGQ'; 
+    const videoOptions = {
+        width: '600', // Adjust the width as needed
+        height: '400', // Adjust the height as needed
+      };
+
     return (
         <>
             <div className='shop-container'>
-                <div className="products-container">
+                <div className="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {
                         products.map(product => <Product
                             key={product._id}
@@ -118,6 +128,7 @@ const Shop = () => {
                     </Cart>
                 </div>
             </div>
+       
             {/* pagination */}
             <div className="pagination">
                 <p>currentPage:{currentPage} <br /> item per page: {iteamsPerPage}</p>
@@ -135,6 +146,22 @@ const Shop = () => {
                 </select>
 
             </div>
+
+                {/* yt demo */}
+                <div className='products-container flex justify-between items-center'>
+                <div>
+                <h1>Our service Model </h1>
+                    <YouTube videoId={videoId} opts={videoOptions} />
+                </div>
+                <div>
+                    <img src={offer} alt="" />
+                </div>
+                </div>
+
+                {/* banner img */}
+                <div className='products-container banner flex justify-center items-center '>
+                    <img className='center' src={onlinebuy} alt="" />
+                </div>
         </>
     );
 };
