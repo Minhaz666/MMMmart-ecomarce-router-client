@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import timg from '../../assets/timg.png'
+import { Authcontext } from '../../Provider/Authprovider';
 
 const Login = () => {
+
+    const {signin}=useContext(Authcontext)
 
     const handleLogin=(event)=>
     {
@@ -9,6 +12,18 @@ const Login = () => {
         const email=event.target.email.value;
         const pass=event.target.password.value;
         console.log(email,pass)
+        signin(email,pass)
+        .then((result) => {
+            // Signed up 
+            const user = result.user;
+            console.log(user)
+            // ...
+          })
+          .catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage)
+            // ..
+          });
     }
 
     return (
@@ -25,13 +40,13 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" className="input input-bordered" required />
+                                <input type="email" placeholder="email" name='email' className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" required />
+                                <input type="password" placeholder="password" name='password' className="input input-bordered" required />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>

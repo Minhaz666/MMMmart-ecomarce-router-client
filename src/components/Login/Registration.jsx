@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import register from '../../assets/register.jpg'
+import { Authcontext } from '../../Provider/Authprovider';
 
 const Registration = () => {
     
+    const {createUser}=useContext(Authcontext)
+
     const handleregistration=(event)=>
     {
         event.preventDefault()
         const email=event.target.email.value;
         const pass=event.target.password.value;
         console.log(email,pass)
+        createUser(email,pass)
+        .then((result) => {
+            // Signed up 
+            const user = result.user;
+            console.log(user)
+            // ...
+          })
+          .catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage)
+            // ..
+          });
+
     }
 
     return (
