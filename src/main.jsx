@@ -15,6 +15,7 @@ import cartProductsLoader from './loaders/cartProductsLoader';
 import Checkout from './components/Checkout/Checkout';
 import Registration from './components/Login/Registration';
 import Authprovider from './Provider/Authprovider';
+import Privateroute from './Router/Privateroute';
 
 const router = createBrowserRouter([
   {
@@ -27,20 +28,20 @@ const router = createBrowserRouter([
         loader:()=>{return fetch('http://localhost:5000/totalproduct')}
       },
       {
-        path: 'orders',
-        element: <Orders></Orders>,
+        path: '/orders',
+        element: <Privateroute><Orders></Orders></Privateroute>,
         loader: cartProductsLoader
       },
       {
-        path: 'inventory',
-        element: <Inventory></Inventory>
+        path: '/inventory',
+        element: <Privateroute><Inventory></Inventory></Privateroute>
       },
       {
-        path:'checkout',
+        path:'/checkout',
         element: <Checkout></Checkout>
       },
       {
-        path: 'login',
+        path: '/login',
         element: <Login></Login>
       },
       {

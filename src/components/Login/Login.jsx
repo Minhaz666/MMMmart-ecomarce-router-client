@@ -1,10 +1,19 @@
 import React, { useContext } from 'react';
 import timg from '../../assets/timg.png'
 import { Authcontext } from '../../Provider/Authprovider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
+    const location=useLocation();
+    const navigate=useNavigate()
+
+    const navigateTo =location?.state?.pathname || '/'
+    
     const {signin}=useContext(Authcontext)
+
+    
+    console.log(location)
 
     const handleLogin=(event)=>
     {
@@ -17,6 +26,7 @@ const Login = () => {
             // Signed up 
             const user = result.user;
             console.log(user)
+            navigate(navigateTo)
             // ...
           })
           .catch((error) => {
