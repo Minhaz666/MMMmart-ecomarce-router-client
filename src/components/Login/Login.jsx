@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import timg from '../../assets/timg.png'
 import { Authcontext } from '../../Provider/Authprovider';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const location=useLocation();
     const navigate=useNavigate()
+    const [errormess,setErrormess]=useState('')
 
     const navigateTo =location?.state?.pathname || '/'
     
@@ -26,12 +27,14 @@ const Login = () => {
             // Signed up 
             const user = result.user;
             console.log(user)
+            setErrormess('')
             navigate(navigateTo)
             // ...
           })
           .catch((error) => {
             const errorMessage = error.message;
             console.log(errorMessage)
+            setErrormess(errorMessage)
             // ..
           });
     }
@@ -64,7 +67,9 @@ const Login = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
                             </div>
+                            <p className='my-3'>if you haven't account please <span className='text-blue-500'><Link to='/registration'>register</Link></span></p>
                         </form>
+                        <p className='text-red-500'>{errormess}</p>
                     </div>
                 </div>
             </div>

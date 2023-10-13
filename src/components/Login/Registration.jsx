@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import register from '../../assets/register.jpg'
 import { Authcontext } from '../../Provider/Authprovider';
+import { Link } from 'react-router-dom';
 
 const Registration = () => {
     
@@ -60,6 +61,7 @@ const Registration = () => {
                             <input className='btn btn-primary' value='SignUP' type="submit" />
                             {/* <button className=""></button> */}
                         </div>
+                        <p className='my-3'>if you have an account please <span className='text-orange-500'><Link to='/login'>login</Link></span></p>
                     </form>
                 </div>
             </div>
